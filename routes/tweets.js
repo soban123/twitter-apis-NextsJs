@@ -17,12 +17,12 @@ var T = new Twit({
 
 
 /* GET Tweets listing. */
-router.get('/:topic/:count', async function (req, res, next) {
+router.get('/', async function (req, res, next) {
     
     // res.send("tweets");
-    const { topic , count  } = req.params ; 
-    console.log( topic , count )
-    T.get('search/tweets', { q: ` ${topic} `, count: count }, function(err, data, response) {
+    const { topic , count  , date } = req.query ; 
+    console.log( req.query )
+    T.get('search/tweets', { q: `${topic} since:`+date, count: count }, function(err, data, response) {
         // console.log(data)   
         res.json( data.statuses  )
       })
